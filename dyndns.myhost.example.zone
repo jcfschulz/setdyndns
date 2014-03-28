@@ -1,0 +1,7 @@
+$ORIGIN dyndns.myhost.example.
+$TTL 60
+@ IN SOA ns01.myhost.example. admin.myhost.example. (
+;ZONE-VERSION ; comment required by setdyndns - do not remove!
+        1 ; set by setdyndns
+        60 600 43200 60)
+@ IN NS ns01.myhost.example.
