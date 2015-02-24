@@ -11,6 +11,7 @@
 #include <grp.h>
 #include <fcntl.h>
 #include <errno.h>
+#include <pwd.h>
 
 #include <ext/stdio_filebuf.h>
 
@@ -191,6 +192,9 @@ int main(int argc, char **argv) {
 	std::string
 		username,
 		ipaddr;
+  struct passwd *pw;
+  uid_t uid;
+
 
 	if (argc == 3) {
 		// Check argument for valid IP address
@@ -227,7 +231,10 @@ int main(int argc, char **argv) {
 		);
 	}
 
-	username = getlogin();
+  uid = getuid();
+  pw = getpwuid(uid);
+  username = pw->pw_name; 
+
 	if (!checkgroup(username.c_str())) {
 		std::cerr << argv[0]
 			<< " can only be called by members of group '"
